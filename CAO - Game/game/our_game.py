@@ -84,8 +84,8 @@ map = [
 
 #Create the ball
 ball_position = [16.0, 16.0]
-speed_x = 0.0
-speed_y = 0.0
+speed_x = 5.0
+speed_y = -10.0
 
 # Sprites
 sprite_wall = pygame.image.load('wall.png') 
@@ -108,9 +108,9 @@ class Ball(object):
         
     def move(self, x, y):
         if (x != 0):
-            self.move_axis(self, x, 0)
+            self.move_axis(x, 0)
         if (y !=0):
-            self.move_axis(self, 0, y)
+            self.move_axis(0, y)
     
     def move_axis(self, x, y):
         
@@ -131,10 +131,10 @@ class Ball(object):
                     ball_position[0] = self.rect.left
                 if y > 0: 
                     self.rect.bottom = wall.rect.top
-                    ball_position[0] = self.rect.top
+                    ball_position[1] = self.rect.top
                 if y < 0:
                     self.rect.top = wall.rect.bottom
-                    ball_position[0] = self.rect.top
+                    ball_position[1] = self.rect.top
 
        
         # Check for holes
@@ -187,8 +187,13 @@ while running:
         if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
             running = False
     
-    # Get the momevent of the ball
-    dx = move
+    # Get the movement of the ball
+    dx = speed_x * (PROGRAM_SPEED / 1000);
+    dy = speed_y * (PROGRAM_SPEED / 1000);
+    ball.move(dx, dy)
+    
+    
+    
 
     #Fill map
     screen.fill((0,0,0))
@@ -199,6 +204,17 @@ while running:
         pygame.draw.rect(screen, (255, 255, 255), finish.rect)           
     pygame.draw.rect(screen, (255, 200, 0), ball.rect)
     
+    font = pygame.font.Font(None, 20)
+    text = font.render("xspeed=" + str(speed_x), 1, (255, 255, 255))
+    textpos = text.get_rect()
+    textpos.left = 500
+    textpos.centery = 20
+    screen.blit(text, textpos)
+    text = font.render("yspeed=" + str(speed_y), 1, (255, 255, 255))
+    textpos = text.get_rect()
+    textpos.left = 500
+    textpos.centery = 50
+    screen.blit(text, textpos)
     
     pygame.display.flip()
 
