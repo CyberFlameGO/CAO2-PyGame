@@ -5,23 +5,27 @@ Created on 10 jan. 2015
 '''
 
 #Import pygame_quit
-import pygame
 import os
-import math
-import array
+
+import pygame
+from pygame.rect import Rect
+
 
 # Constants
 OBJECT_SIZE = 16
 PROGRAM_SPEED = 60
+PIXEL_SPEED_INC = 0.02
+MAX_SPEED = 50.0
+DEAD_ZONE = 8.0
                 
 #Map objects
 walls = []
 finishes = []
 holes = []
 
-map = [
+level = [
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-"W         W                                      W",
+"WS        W                                      W",
 "W         W                                      W",
 "WWWWWWWW  WWWWW                                  W",
 "W         W                                      W",
@@ -68,7 +72,7 @@ map = [
 "W                                                W",
 "W                                                W",
 "W                                                W",
-"W                                              S W",
+"W                                                W",
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 ]
 
@@ -89,7 +93,9 @@ sprite_hole = pygame.image.load('hole.png')
 #sprite_finish = pygame.image.load('finish.png')
 sprite_background = pygame.image.load('background2.png')
 
-
+# Input
+clicked_pos = (0,0)
+clicked = False
 
 class Ball(object):
     
@@ -153,9 +159,9 @@ class Hole(object):
 #Set up display
 screen = pygame.display.set_mode((1000, 800))
 
-#Create map
+#Create level
 x = y = 0
-for row in map:
+for row in level:
     for coll in row:
         if coll == "W" :
             Wall((x,y))
@@ -181,15 +187,43 @@ while running:
         if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
             running = False
     
+    # Do something with input
+    if pygame.mouse.get_pressed()[0]:
+        if not clicked:
+            clicked = True
+            clicked_pos = pygame.mouse.get_pos()
+        else:
+            xdif = (pygame.mouse.get_pos()[0] - clicked_pos[0])
+            if (xdif > 0 and xdif > DEAD_ZONE) or  (xdif < 0 and xdif < DEAD_ZONE):
+                if xdif < 0:
+                    xdif = xdif + DEAD_ZONE
+                if xdif > 0:
+                    xdif = xdif - DEAD_ZONE
+                speed_x = speed_x + ((xdif) * PIXEL_SPEED_INC)
+                if speed_x > MAX_SPEED:
+                    speed_x = MAX_SPEED
+                if speed_x < -MAX_SPEED:
+                    speed_x = -MAX_SPEED
+            ydif = (pygame.mouse.get_pos()[1] - clicked_pos[1])
+            if (ydif > 0 and ydif > DEAD_ZONE) or  (ydif < 0 and ydif < DEAD_ZONE):
+                if ydif < 0:
+                    ydif = ydif + DEAD_ZONE
+                if ydif > 0:
+                    ydif = ydif - DEAD_ZONE
+                speed_y = speed_y + ((ydif) * PIXEL_SPEED_INC)
+                if speed_y > MAX_SPEED:
+                    speed_y = MAX_SPEED
+                if speed_y < -MAX_SPEED:
+                    speed_y = -MAX_SPEED
+    else:
+        clicked = False
     # Get the movement of the ball
     dx = speed_x * (PROGRAM_SPEED / 1000);
     dy = speed_y * (PROGRAM_SPEED / 1000);
     ball.move(dx, dy)
     
-    
-    
 
-    #Fill map
+    #Fill level
     screen.fill((0,0,0))
     background_image = sprite_background.get_rect()
     screen.blit(sprite_background, background_image)
@@ -214,6 +248,9 @@ while running:
     textpos.left = 820
     textpos.centery = 50
     screen.blit(text, textpos)
+    
+    if pygame.mouse.get_pressed()[0]:
+        pygame.draw.circle(screen, (0, 0, 0), (clicked_pos[0], clicked_pos[1]), 5)
     
     pygame.display.flip()
 
