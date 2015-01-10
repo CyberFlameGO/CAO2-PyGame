@@ -8,7 +8,6 @@ Created on 10 jan. 2015
 import os
 
 import pygame
-from pygame.rect import Rect
 
 
 # Constants
@@ -217,6 +216,7 @@ while running:
                     speed_y = -MAX_SPEED
     else:
         clicked = False
+        
     # Get the movement of the ball
     dx = speed_x * (PROGRAM_SPEED / 1000);
     dy = speed_y * (PROGRAM_SPEED / 1000);
@@ -234,8 +234,9 @@ while running:
         pygame.draw.rect(screen, (255, 255, 255), hole.rect)
         screen.blit(sprite_hole, hole.rect)  
     for finish in finishes:
-        pygame.draw.rect(screen, (255, 255, 255), finish.rect)           
-    pygame.draw.rect(screen, (255, 200, 0), ball.rect)
+        pygame.draw.rect(screen, (255, 255, 255), finish.rect)   
+    pygame.draw.circle(screen, (0, 180, 0), (ball.rect.centerx, ball.rect.centery), 8)        
+    #pygame.draw.rect(screen, (255, 200, 0), ball.rect)
     
     font = pygame.font.Font(None, 20)
     text = font.render("xspeed=" + str(speed_x), 1, (0, 0, 0))
@@ -249,6 +250,7 @@ while running:
     textpos.centery = 50
     screen.blit(text, textpos)
     
+    # Clicked location indicator
     if pygame.mouse.get_pressed()[0]:
         pygame.draw.circle(screen, (0, 0, 0), (clicked_pos[0], clicked_pos[1]), 5)
     
