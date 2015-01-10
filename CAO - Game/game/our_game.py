@@ -82,6 +82,11 @@ map = [
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 ]
 
+#Create the ball
+ball_position = [16.0, 16.0]
+speed_x = 0.0
+speed_y = 0.0
+
 # Sprites
 sprite_wall = pygame.image.load('wall.png') 
 #sprite_empty = pygame.image.load('empty.png')
@@ -156,9 +161,6 @@ class Hole(object):
 #Set up display
 screen = pygame.display.set_mode((640, 480))
 
-#Create the ball
-ball_position = [16.0, 16.0]
-
 #Create map
 x = y = 0
 for row in map:
@@ -185,6 +187,9 @@ while running:
         if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
             running = False
     
+    # Get the momevent of the ball
+    dx = move
+
     #Fill map
     screen.fill((0,0,0))
     for wall in walls:
