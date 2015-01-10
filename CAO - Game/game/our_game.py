@@ -26,31 +26,29 @@ map = [
 "WWWWWWWW  WWWWW                                            W",
 "W         W                                                W",
 "W H       W                                                W",
-"W     S   W                                                W",
+"W         W                                                W",
 "W         W                                                W",
 "W         W                                                W",
 "W    H    W                                                W",
 "W         W                                                W",
 "W         W                                                W",
-"W        HW                                                W",
-"W  WWWWWWWW                                                W",
-"W                            F                             W",
-"W                                                          W",
-"WWWWWWWWWWW                  F                             W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
+"W         W                                                W",
+"W  WWWWWWWW  WWWWW                                         W",
+"W        W      HW                                         W",
+"W        W       WWWWW                                     W",
+"WWWWWWW  W  H        W                                     W",
+"W        W           W                                     W",
+"W        WWWWWWWW    W                                     W",
+"W  WWWW  W      WWW  W                                     W",
+"W  W     W      W    W                                     W",
+"W  W     W  W   W    W                                     W",
+"W  W   WWW  W   W  WWW                                     W",
+"W  W        W   W    W                                     W",
+"W  W        W   W    W                                     W",
+"W  WWWWWWWWWW   WWW  W                                     W",
+"W                    W                                     W",
+"W                    W                                     W",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                           W",
 "W                                                          W",
 "W                                                          W",
 "W                                                          W",
@@ -79,8 +77,15 @@ map = [
 "W                                                          W",
 "W                                                          W",
 "W                                                          W",
+"W                                                          W",
+"W                                              S           W",
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 ]
+
+# Initialise pygame
+os.environ["SDL_VIDEO_CENTERED"] = "1"
+pygame.init()
+clock = pygame.time.Clock()
 
 #Create the ball
 ball_position = [16.0, 16.0]
@@ -89,15 +94,12 @@ speed_y = -10.0
 
 # Sprites
 sprite_wall = pygame.image.load('wall.png') 
-#sprite_empty = pygame.image.load('empty.png')
-#sprite_hole = pygame.image.load('hole.png')
+sprite_hole = pygame.image.load('hole.png')
 #sprite_ball = pygame.image.load('bal.png')
 #sprite_finish = pygame.image.load('finish.png')
+sprite_background = pygame.image.load('background.png')
 
-# Initialise pygame
-os.environ["SDL_VIDEO_CENTERED"] = "1"
-pygame.init()
-clock = pygame.time.Clock()
+
 
 class Ball(object):
     
@@ -171,6 +173,8 @@ for row in map:
             Finish((x,y))
         if coll == "S" :
             ball = Ball((x,y))
+        if coll == "H":
+            Hole((x,y))
         x+= OBJECT_SIZE
     y+= OBJECT_SIZE
     x=0
@@ -197,9 +201,14 @@ while running:
 
     #Fill map
     screen.fill((0,0,0))
+    background_image = sprite_background.get_rect()
+    screen.blit(sprite_background, background_image)
     for wall in walls:
         pygame.draw.rect(screen, (255, 255, 255), wall.rect)
-        screen.blit(sprite_wall, wall.rect)    
+        screen.blit(sprite_wall, wall.rect)  
+    for hole in holes:
+        pygame.draw.rect(screen, (255, 255, 255), hole.rect)
+        screen.blit(sprite_hole.convert_alpha, hole.rect)  
     for finish in finishes:
         pygame.draw.rect(screen, (255, 255, 255), finish.rect)           
     pygame.draw.rect(screen, (255, 200, 0), ball.rect)
