@@ -208,7 +208,7 @@ while running:
         screen.blit(sprite_wall, wall.rect)  
     for hole in holes:
         pygame.draw.rect(screen, (255, 255, 255), hole.rect)
-        screen.blit(sprite_hole.convert_alpha, hole.rect)  
+        screen.blit(sprite_hole, hole.rect)  
     for finish in finishes:
         pygame.draw.rect(screen, (255, 255, 255), finish.rect)           
     pygame.draw.rect(screen, (255, 200, 0), ball.rect)
