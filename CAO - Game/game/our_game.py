@@ -11,7 +11,7 @@ import math
 import array
 
 # Constants
-OBJECT_SIZE = 8
+OBJECT_SIZE = 16
 PROGRAM_SPEED = 60
                 
 #Map objects
@@ -20,66 +20,56 @@ finishes = []
 holes = []
 
 map = [
-"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-"W         W                                                W",
-"W         W                                                W",
-"WWWWWWWW  WWWWW                                            W",
-"W         W                                                W",
-"W H       W                                                W",
-"W         W                                                W",
-"W         W                                                W",
-"W         W                                                W",
-"W    H    W                                                W",
-"W         W                                                W",
-"W         W                                                W",
-"W         W                                                W",
-"W  WWWWWWWW  WWWWW                                         W",
-"W        W      HW                                         W",
-"W        W       WWWWW                                     W",
-"WWWWWWW  W  H        W                                     W",
-"W        W           W                                     W",
-"W        WWWWWWWW    W                                     W",
-"W  WWWW  W      WWW  W                                     W",
-"W  W     W      W    W                                     W",
-"W  W     W  W   W    W                                     W",
-"W  W   WWW  W   W  WWW                                     W",
-"W  W        W   W    W                                     W",
-"W  W        W   W    W                                     W",
-"W  WWWWWWWWWW   WWW  W                                     W",
-"W                    W                                     W",
-"W                    W                                     W",
-"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                           W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                                          W",
-"W                                              S           W",
-"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+"W         W                                      W",
+"W         W                                      W",
+"WWWWWWWW  WWWWW                                  W",
+"W         W                                      W",
+"W H       W                                      W",
+"W         W                                      W",
+"W         W                                      W",
+"W         W                                      W",
+"W    H    W                                      W",
+"W         W                                      W",
+"W         W                                      W",
+"W         W                                      W",
+"W  WWWWWWWW  WWWWW                               W",
+"W        W      HW                               W",
+"W        W       WWWWW                           W",
+"WWWWWWW  W  H        W                           W",
+"W        W           W                           W",
+"W        WWWWWWWW    W                           W",
+"W  WWWW  W      WWW  W                           W",
+"W  W     W      W    W                           W",
+"W  W     W  W   W    W                           W",
+"W  W   WWW  W   W  WWW                           W",
+"W  W        W   W    W                           W",
+"W  W        W   W    W                           W",
+"W  WWWWWWWWWW   WWW  W                           W",
+"W                    W                           W",
+"W                    W                           W",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                 W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                                W",
+"W                                              S W",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 ]
 
 # Initialise pygame
@@ -93,11 +83,11 @@ speed_x = 5.0
 speed_y = -10.0
 
 # Sprites
-sprite_wall = pygame.image.load('wall.png') 
+sprite_wall = pygame.image.load('wall2.png') 
 sprite_hole = pygame.image.load('hole.png')
 #sprite_ball = pygame.image.load('bal.png')
 #sprite_finish = pygame.image.load('finish.png')
-sprite_background = pygame.image.load('background.png')
+sprite_background = pygame.image.load('background2.png')
 
 
 
@@ -161,7 +151,7 @@ class Hole(object):
 
 
 #Set up display
-screen = pygame.display.set_mode((640, 480))
+screen = pygame.display.set_mode((1000, 800))
 
 #Create map
 x = y = 0
@@ -214,14 +204,14 @@ while running:
     pygame.draw.rect(screen, (255, 200, 0), ball.rect)
     
     font = pygame.font.Font(None, 20)
-    text = font.render("xspeed=" + str(speed_x), 1, (255, 255, 255))
+    text = font.render("xspeed=" + str(speed_x), 1, (0, 0, 0))
     textpos = text.get_rect()
-    textpos.left = 500
+    textpos.left = 820
     textpos.centery = 20
     screen.blit(text, textpos)
-    text = font.render("yspeed=" + str(speed_y), 1, (255, 255, 255))
+    text = font.render("yspeed=" + str(speed_y), 1, (0, 0, 0))
     textpos = text.get_rect()
-    textpos.left = 500
+    textpos.left = 820
     textpos.centery = 50
     screen.blit(text, textpos)
     
