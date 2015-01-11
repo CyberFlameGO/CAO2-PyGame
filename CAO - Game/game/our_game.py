@@ -6,9 +6,11 @@ Created on 10 jan. 2015
 
 #Import pygame_quit
 import os
-
+import sys
 import pygame
 
+#Raspberry path
+file_path = sys.argv[1] if len(sys.argv) > 1 else ''
 
 # Constants
 OBJECT_SIZE = 16
@@ -86,11 +88,11 @@ speed_x = 5.0
 speed_y = -10.0
 
 # Sprites
-sprite_wall = pygame.image.load('wall2.png') 
-sprite_hole = pygame.image.load('hole.png')
-#sprite_ball = pygame.image.load('bal.png')
-#sprite_finish = pygame.image.load('finish.png')
-sprite_background = pygame.image.load('background2.png')
+sprite_wall = pygame.image.load(file_path + 'wall2.png') 
+sprite_hole = pygame.image.load(file_path + 'hole.png')
+#sprite_ball = pygame.image.load(sys.argv[1] + 'bal.png')
+#sprite_finish = pygame.image.load(sys.argv[1] + 'finish.png')
+sprite_background = pygame.image.load(file_path + 'background2.png')
 
 # Input
 clicked_pos = (0,0)
@@ -218,8 +220,8 @@ while running:
         clicked = False
         
     # Get the movement of the ball
-    dx = speed_x * (PROGRAM_SPEED / 1000);
-    dy = speed_y * (PROGRAM_SPEED / 1000);
+    dx = speed_x * (PROGRAM_SPEED / 500);
+    dy = speed_y * (PROGRAM_SPEED / 500);
     ball.move(dx, dy)
     
 
