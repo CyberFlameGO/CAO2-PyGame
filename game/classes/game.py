@@ -83,6 +83,7 @@ class Game(object):
     win = False
     end_lives = 0
     end_win = False
+    next_live_time = 0
     
     #Sprites
     sprites = {}
@@ -134,14 +135,21 @@ class Game(object):
             
             else :   
                 # Game do step
-                if not self.start_screen:
+                if not self.start_screen and not self.next_live_time > 0:
                     self.game_move()
+                
+                # Times for next level
+                if self.next_live_time > 0:
+                    if int(time.time() - self.next_live_time) > c.WAIT_TIME_BETWEEN_LIVES :
+                        self.next_live_time = 0
+                        self.start_time+= time.time() - self.temp_time
                 
                 # Draw new  field
                 self.draw_play_screen()
                 
                 # Wait a clock tick
                 self.clock.tick(c.PROGRAM_SPEED)
+                
                 
     def getHoles(self):
         return self.holes
@@ -154,6 +162,10 @@ class Game(object):
     
     def setWin(self):
         self.win = True
+        
+    def nextLive(self):
+        self.next_live_time = time.time()
+        self.temp_time = time.time()
    
     def create_map(self):
         self.walls = []
@@ -266,7 +278,10 @@ class Game(object):
             textpos.left = 820
             textpos.top = 20
             self.screen.blit(text, textpos)
-            play_time = int(time.time() - self.start_time);
+            if self.next_live_time > 0:
+                play_time = int(self.temp_time - self.start_time)
+            else: 
+                play_time = int(time.time() - self.start_time)
             text = font.render("Time: " + str(play_time), 1, (0, 0, 0))
             textpos = text.get_rect()
             textpos.left = 820
@@ -291,6 +306,22 @@ class Game(object):
                 draw_finish = finish.rect.copy()
                 draw_finish.centery = draw_finish.centery - 16
                 self.screen.blit(self.sprites["finish"], draw_finish)  
+            
+            # Timer for next level
+            if self.next_live_time > 0:
+                timer = c.WAIT_TIME_BETWEEN_LIVES - int(time.time() - self.next_live_time)
+                if timer > 0:
+                    font_time = pygame.font.Font(None, 45)
+                    text = font_time.render("Start in:", 1, (0, 0, 0))
+                    textpos = text.get_rect()
+                    textpos.left = 820
+                    textpos.top = 150
+                    self.screen.blit(text, textpos)
+                    text = font_time.render(str(timer) + " seconds", 1, (0, 0, 0))
+                    textpos = text.get_rect()
+                    textpos.left = 820
+                    textpos.top = 190
+                    self.screen.blit(text, textpos)
             
             # Clicked location indicator
             if pygame.mouse.get_pressed()[0]:

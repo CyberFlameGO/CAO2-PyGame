@@ -80,6 +80,8 @@ class Ball(object):
         self.ball_position[1] = self.start_position[1]
         self.speed_x = 0
         self.speed_y = 0
+        if self.lives > 0:
+            self.game.nextLive()
 
     
     def set_speed(self, speed):
