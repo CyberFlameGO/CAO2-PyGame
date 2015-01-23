@@ -92,7 +92,8 @@ class Game(object):
 
     def __init__(self, file_path, set_map, screen):
         
-        self.sprites["wall"] = pygame.image.load(file_path + 'images/wall2.png') 
+        self.sprites["wall"] = pygame.image.load(file_path + 'images/wall2.png')
+        self.sprites["ball"] = pygame.image.load(file_path + 'images/Ball_green.png') 
         self.sprites["hole"] = pygame.image.load(file_path + 'images/hole.png')
         self.sprites["finish"] = pygame.image.load(file_path + 'images/finish.png')
         self.sprites["background"] = pygame.image.load(file_path + 'images/background2.png')
@@ -256,10 +257,9 @@ class Game(object):
             for wall in self.walls:
                 self.screen.blit(self.sprites["wall"], wall.rect)  
             for hole in self.holes:
-                self.screen.blit(self.sprites["hole"], hole.rect)  
-            pygame.draw.circle(self.screen, (0, 180, 0), (self.ball.rect.centerx, self.ball.rect.centery), 8)        
-            #pygame.draw.rect(screen, (255, 200, 0), ball.rect)
-            
+                self.screen.blit(self.sprites["hole"], hole.rect) 
+            self.screen.blit(self.sprites["ball"], self.ball.rect) 
+          
             font = pygame.font.Font(None, 45)
             text = font.render("Lives: " + str(self.ball.get_lives()), 1, (0, 0, 0))
             textpos = text.get_rect()
