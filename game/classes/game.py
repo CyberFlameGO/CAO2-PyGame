@@ -231,7 +231,7 @@ class Game(object):
             self.screen.blit(text, textpos)
             
             if not self.end_time == 0 :
-                font_startscreen = pygame.font.Font(None, 50)
+                font_startscreen = pygame.font.Font(None, 60)
                 if self.end_win :
                     text = font_startscreen.render("You won!", 1, (0, 255, 0))
                 else:
@@ -240,13 +240,13 @@ class Game(object):
                 textpos.centery = 200
                 textpos.centerx = 500
                 self.screen.blit(text, textpos)
-                font_startscreen = pygame.font.Font(None, 30)
+                font_startscreen = pygame.font.Font(None, 40)
                 text = font_startscreen.render("Time: " + str(self.end_time) + " seconds", 1, (0, 0, 0))
                 textpos = text.get_rect()
                 textpos.centery = 250
                 textpos.centerx = 500
                 self.screen.blit(text, textpos)
-                text = font_startscreen.render(" Lives: " + str(self.end_lives) , 1, (0, 0, 0))
+                text = font_startscreen.render(" Lives left: " + str(self.end_lives) , 1, (0, 0, 0))
                 textpos = text.get_rect()
                 textpos.centery = 290
                 textpos.centerx = 500
@@ -260,28 +260,32 @@ class Game(object):
             pygame.draw.circle(self.screen, (0, 180, 0), (self.ball.rect.centerx, self.ball.rect.centery), 8)        
             #pygame.draw.rect(screen, (255, 200, 0), ball.rect)
             
+            font = pygame.font.Font(None, 45)
+            text = font.render("Lives: " + str(self.ball.get_lives()), 1, (0, 0, 0))
+            textpos = text.get_rect()
+            textpos.left = 820
+            textpos.top = 20
+            self.screen.blit(text, textpos)
+            play_time = int(time.time() - self.start_time);
+            text = font.render("Time: " + str(play_time), 1, (0, 0, 0))
+            textpos = text.get_rect()
+            textpos.left = 820
+            textpos.top = 60
+            self.screen.blit(text, textpos)
+            
+            # DEBUG
             font = pygame.font.Font(None, 20)
             text = font.render("xspeed=" + str(self.ball.get_speed()[0]), 1, (0, 0, 0))
             textpos = text.get_rect()
             textpos.left = 820
-            textpos.centery = 20
+            textpos.centery = 600
             self.screen.blit(text, textpos)
             text = font.render("yspeed=" + str(self.ball.get_speed()[1]), 1, (0, 0, 0))
             textpos = text.get_rect()
             textpos.left = 820
-            textpos.centery = 50
+            textpos.centery = 630
             self.screen.blit(text, textpos)
-            text = font.render("Lives=" + str(self.ball.get_lives()), 1, (0, 0, 0))
-            textpos = text.get_rect()
-            textpos.left = 820
-            textpos.centery = 80
-            self.screen.blit(text, textpos)
-            play_time = int(time.time() - self.start_time);
-            text = font.render("Time =" + str(play_time), 1, (0, 0, 0))
-            textpos = text.get_rect()
-            textpos.left = 820
-            textpos.centery = 110
-            self.screen.blit(text, textpos)
+            # END DEBUG
             
             for finish in self.finishes:
                 draw_finish = finish.rect.copy()
