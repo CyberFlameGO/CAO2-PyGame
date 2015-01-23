@@ -14,7 +14,7 @@ class Ball(object):
     #ball objects
     start_position = [0.0, 0.0]     # Start position from the map
     ball_position = [16.0, 16.0]    # Ball position when started
-    speed_x = 1.0
+    speed_x = 0.0
     speed_y = 0.0
     lives = 3
     lives_down_set = False
@@ -51,15 +51,19 @@ class Ball(object):
                 if x > 0:
                     self.rect.right = wall.rect.left
                     self.ball_position[0] = self.rect.left
+                    self.speed_x = 0
                 if x < 0: 
                     self.rect.left = wall.rect.right
                     self.ball_position[0] = self.rect.left
+                    self.speed_x = 0
                 if y > 0: 
                     self.rect.bottom = wall.rect.top
                     self.ball_position[1] = self.rect.top
+                    self.speed_y = 0
                 if y < 0:
                     self.rect.top = wall.rect.bottom
-                    self.ball_position[1] = self.rect.top  
+                    self.ball_position[1] = self.rect.top
+                    self.speed_y = 0
         
         # Check for holes
         for hole in self.game.getHoles():
