@@ -21,45 +21,45 @@ class Game(object):
     
     map = [
     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-    "WS       HWH       W        W                    W",
+    "WS       HWH       W        WH                   W",
     "W         W        W   H    W                E   W",
-    "WWWWWWWW  W    W   W   H    W                    W",
+    "WWWWWWWW  W    W   W   H    W   WWWWWWWWWWWWWWWWWW",
     "W         W    W            W                    W",
-    "W H       WH   W      WW    W                    W",
-    "W         W    WH    WW     W                    W",
-    "W         W   WWWW HWW  H  WW                    W",
-    "W         W        WW     WW                     W",
-    "W    H    W H     WW     WW                      W",
-    "W         WWWW   WW  H  WW                       W",
-    "W         W      W     WW                        W",
-    "W         W      W    WWWWWWWWW                  W",
-    "W  WWWWWWWW  WWWWW            W                  W",
-    "W        W      HWH           W                  W",
-    "W        W       WWWWWWWWWWW  W                  W",
-    "WWWWWWW  W  H        W        W                  W",
-    "W        W           W        W                  W",
-    "W        WWWWWWWW    W    HHHHW                  W",
-    "W  WWWW  W      WWW  W        W                  W",
-    "W  W     W      W    W        W                  W",
-    "W  W     W  W   W    WHHHH    W                  W",
-    "W  W   WWW  W   W  WWW        W                  W",
-    "W  W    H   W   W    W        W                  W",
-    "W  W        W   W    W    HHHHW                  W",
-    "W  WWWWWWWWWW   WWW  W        W                  W",
-    "W          H         W    W   WWWWWWWW           W",
+    "W H       WH   W      WW    WWWWWWWWWWWWWWWWWWW  W",
+    "W         W    WH    WW     WH      W     W     WW",
+    "W         W   WWWW HWW  H  WW    W     W     W  HW",
+    "W         W        WW     WW     WWWWWWWWWWWWWWWWW",
+    "W    H    W H     WW     WW      W              HW",
+    "W         WWWW   WW  H  WW  H    W               W",
+    "W         W      W     WW        W  WWWWWWWWWWW  W",
+    "W         W      W    WWWWWWWWW  W  W H W     W  W",
+    "W  WWWWWWWW  WWWWW            W  W  W   W     W  W",
+    "W        W      HWH           W  W  W   W  W  W  W",
+    "W        W       WWWWWWWWWWW  W  W  W W W  W  W  W",
+    "WWWWWWW  W  H        W        W  W  W W W  W  W  W",
+    "W        W           W        WH W  W W W  W  W  W",
+    "W        WWWWWWWW    W    HHHHW  W  W W W  W  W  W",
+    "W  WWWW  W      WWW  W        W  W  W W W  W  W  W",
+    "W  W     W      W    W        W  W  W W    W  W  W",
+    "W  W     W  W   W    WHHHH    W  W    W    W  W  W",
+    "W  W   WWW  W   W  WWW        W  W    W H  W  W  W",
+    "W  W    H   W   W    W        W  WWWWWWWWWWW  W  W",
+    "W  W        W   W    W    HHHHW               W  W",
+    "W  WWWWWWWWWW   WWW  W        W         H     W  W",
+    "W          H         W    W   WWWWWWWWWWWWWWWWW  W",
     "WH                   WH              W           W",
-    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW     W           W",
-    "WH                 HWWW              W           W",
-    "W                   WW             HHW           W",
-    "W   W WWWWWWWWWWW   W   WWH  HWWWWWWWW           W",
-    "W  HW          HW   W  HW            W           W",
-    "W   WWWWWW   WWWW   W   W    WWWWW   W           W",
+    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW     WWW WWWWWWWWW",
+    "WH                 HWWW              WH          W",
+    "W                   WW             HHWWWWWWWWW WWW",
+    "W   W WWWWWWWWWWW   W   WWH  HWWWWWWWW          HW",
+    "W  HW          HW   W  HW            W  WWWWWWWWWW",
+    "W   WWWWWW   WWWW   W   W    WWWWW   W   H      HW",
     "W   W        WH     W   W   WWH     WW           W",
-    "WH  W WWWWWWWW     HW  W   WW      WW            W",
-    "W   W        W   WWWW     WW      WW             W",
-    "W   WWWWWWWW W     HW    WW  H   WW              W",
+    "WH  W WWWWWWWW     HW  W   WW      WW        H   W",
+    "W   W        W   WWWW     WW      WW      H     HW",
+    "W   WWWWWWWW W     HW    WW  H   WWH             W",
     "W  HW        WH     WWWWWW      WWWWWWWWW        W",
-    "W   W WWWWWWWWWWW    HHWW      WW       W        W",
+    "W   W WWWWWWWWWWW    HHWW      WW       WH       W",
     "W   W          HW    HWW  H   WW        WWWWW    W",
     "WH  W           W    WW      WW    WW   W        W",
     "W   WWWWWWWWW  WW   WWH     WW    WW    W   W    W",
@@ -234,6 +234,20 @@ class Game(object):
         # Get the movement of the ball
         dx = speed_x * 1.6 * (c.FPS / 120);
         dy = speed_y * (c.FPS / 120);
+        # Add drag
+        if speed_x > 0 and speed_x > c.PIXEL_DRAG:
+            speed_x -= c.PIXEL_DRAG
+        elif speed_x < 0 and speed_x < -c.PIXEL_DRAG:
+            speed_x += c.PIXEL_DRAG
+        else:
+            speed_x = 0 
+        if speed_y > 0 and speed_y > c.PIXEL_DRAG:
+            speed_y -= c.PIXEL_DRAG
+        elif speed_y < 0 and speed_y < -c.PIXEL_DRAG:
+            speed_y += c.PIXEL_DRAG
+        else:
+            speed_y = 0 
+        # Move and update speed
         self.ball.set_speed((speed_x, speed_y))
         self.ball.move(dx, dy)
     
