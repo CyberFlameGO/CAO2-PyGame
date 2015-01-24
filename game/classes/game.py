@@ -131,6 +131,7 @@ class Game(object):
                 if e.type == pygame.KEYDOWN:
                     if self.start_screen :
                         self.start_time = time.time()
+                        self.nextLive()
                         self.start_screen = False
                                  
             #check  over
