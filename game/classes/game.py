@@ -12,6 +12,13 @@ import game.constants as c
 class Game(object):
     
     # Maps
+    map2 = [     
+    "WWWWWWWw",
+    "WS      ",
+    "W       ",
+    "WWWWWWWw"
+    ]
+    
     map = [
     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
     "WS       HWH       W        W                    W",
@@ -105,7 +112,7 @@ class Game(object):
         # Set map
         self.current_map = set_map
         
-        # Set clock
+        # Set clock   
         self.clock = pygame.time.Clock()
    
    
@@ -122,8 +129,9 @@ class Game(object):
                 if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                     return False
                 if e.type == pygame.KEYDOWN:
-                    self.start_time = time.time()
-                    self.start_screen = False
+                    if self.start_screen :
+                        self.start_time = time.time()
+                        self.start_screen = False
                                  
             #check  over
             if self.ball.get_lives() <= 0 or self.win:
@@ -148,7 +156,7 @@ class Game(object):
                 self.draw_play_screen()
                 
                 # Wait a clock tick
-                self.clock.tick(c.PROGRAM_SPEED)
+                self.clock.tick(c.FPS)
                 
                 
     def getHoles(self):
@@ -224,8 +232,8 @@ class Game(object):
             self.clicked = False
         
         # Get the movement of the ball
-        dx = speed_x * (c.PROGRAM_SPEED / 500);
-        dy = speed_y * (c.PROGRAM_SPEED / 500);
+        dx = speed_x * 1.6 * (c.FPS / 120);
+        dy = speed_y * (c.FPS / 120);
         self.ball.set_speed((speed_x, speed_y))
         self.ball.move(dx, dy)
     

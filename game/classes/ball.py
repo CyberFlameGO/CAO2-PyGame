@@ -42,10 +42,11 @@ class Ball(object):
         self.ball_position[0]+= x
         self.ball_position[1]+= y 
         
-        # USe float coordinates
+        # Round the float position to the rect. 
         self.rect.x = round(self.ball_position[0])
         self.rect.y = round(self.ball_position[1])
         
+            
         for wall in self.game.getWalls():
             if self.rect.colliderect(wall.rect):
                 if x > 0:
@@ -73,6 +74,10 @@ class Ball(object):
         for finish in self.game.getFinishes():
             if self.rect.right > (finish.rect.left + self.hole_overlap) and self.rect.left < (finish.rect.right - self.hole_overlap) and self.rect.top < (finish.rect.bottom - self.hole_overlap) and self.rect.bottom > (finish.rect.top + self.hole_overlap):
                 self.game.setWin()
+                
+        # Update the rect poisiton  
+        self.rect.x = round(self.ball_position[0])
+        self.rect.y = round(self.ball_position[1])
     
     def lives_down(self):
         self.lives-=1
